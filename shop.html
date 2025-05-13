@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Shop | CATS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #0f0f0f;
+      font-family: Arial, sans-serif;
+      color: #fff;
+      margin: 0;
+    }
+
+    header {
+      background-color: #000;
+      padding: 15px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-family: "Times New Roman", Georgia, serif;
+      font-size: 2rem;
+      font-weight: bold;
+      color: #c0975f;
+    }
+
+    nav a {
+      color: #fff;
+      margin: 0 15px;
+      text-decoration: none;
+      font-size: 16px;
+    }
+
+    nav a.active,
+    nav a:hover {
+      color: #c0975f;
+    }
+
+    .hero {
+      position: relative;
+      height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      animation: bgZoomFade 2s ease-out forwards;
+      opacity: 0;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('latar.jpg') no-repeat center center/cover;
+      z-index: 0;
+      transform: scale(1.1);
+      animation: bgZoomFade 2s ease-out forwards;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6));
+      z-index: 1;
+    }
+
+    .hero h1 {
+      font-size: 72px;
+      color: #fff;
+      padding: 20px;
+      background-color: transparent;
+      font-family: 'Playfair Display', serif;
+      text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+      position: relative;
+      z-index: 2;
+      animation: textFadeUp 1.5s ease-out;
+    }
+
+    @keyframes bgZoomFade {
+      0% {
+        transform: scale(1.1);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    @keyframes textFadeUp {
+      0% {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 40px;
+    }
+
+    .product {
+      background-color: #1a1a1a;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+      animation: fadeInUp 0.6s ease both;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .product:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 12px 24px rgba(242, 101, 34, 0.3), 0 0 20px rgba(255, 165, 0, 0.2);
+    }
+
+    .product:active {
+      background-color: #2b2b2b;
+      transform: scale(0.96);
+      box-shadow: inset 0 0 15px rgba(242, 101, 34, 0.4), 0 0 10px rgba(255, 255, 255, 0.05);
+    }
+
+    .product img {
+      width: 100%;
+      border-radius: 8px;
+      height: 200px;
+      object-fit: cover;
+      transition: all 0.3s ease;
+    }
+
+    .product img:hover {
+      filter: brightness(1.1) contrast(1.1);
+      transform: scale(1.03);
+    }
+
+    .product h3 {
+      color:#cb7026;
+      ;
+      margin: 15px 0 10px;
+    }
+
+    .product p {
+      font-size: 14px;
+      color: #ccc;
+    }
+
+    .rating {
+      margin: 0.5rem 0;
+      color: gold;
+      font-size: 1.2rem;
+    }
+
+    .price {
+      font-weight: bold;
+      color: #cb7026;
+      margin-bottom: 0.5rem;
+    }
+
+    .actions {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      margin-top: 5px;
+    }
+
+    .fav-btn {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #ff6666;
+      transition: transform 0.2s;
+    }
+
+    .fav-btn:hover {
+      transform: scale(1.2);
+    }
+    
+    .cart-btn {
+  background-color: orange;
+  color: white;
+  border: none;
+  padding: 0.4rem 1rem; /* Lebih kecil lagi */
+  font-size: 0.9rem; /* Menurunkan ukuran font */
+  font-weight: bold;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(255, 165, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+  right: 15px;
+}
+
+
+    .cart-btn::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .cart-btn:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 6px 14px rgba(255, 140, 0, 0.4);
+    }
+
+    .cart-btn:hover::after {
+      left: 100%;
+    }
+
+    .cart-btn:active {
+      background-color: darkorange;
+      transform: scale(0.95);
+      box-shadow: 0 2px 6px rgba(255, 140, 0, 0.6);
+    }
+
+    footer {
+      background-color: #121212;
+      padding: 30px 0;
+      text-align: center;
+      color: #fff;
+      font-size: 16px;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">Cattelier</div>
+    <nav>
+      <a href="home.html" class="nav-link">Home</a>
+      <a href="shop.html" class="nav-link">Cats</a>
+      <a href="favorit.html" class="nav-link">Favorit</a>
+      <a href="cart.html" class="nav-link">Cart</a>
+      <a href="checkout.html" class="nav-link">Checkout</a>
+      <a href="invoice.html" class="nav-link">Invoice</a>
+      <a href="profile.html" class="nav-link">Profile</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+
+    </nav>
+  </header>
+
+  <div class="hero">
+    <h1>Cattelier</h1>
+  </div>
+  <section class="products">
+    <div class="product">
+      <img src="1.jpg" alt="Abyssinian">
+      <h3>Abyssinian</h3>
+      <p>Kucing ramping berbulu pendek dan aktif.</p>
+      <div class="rating">⭐⭐⭐⭐☆</div>
+      <div class="price">IDR 12.000.000</div>
+      <div class="actions">
+        <button class="fav-btn" id="fav-btn-Abyssinian" onclick="toggleFavorite('Abyssinian')">🤍</button>
+        <button class="cart-btn">Masukan Keranjang</button>
+      </div>
+    </div>
+  
+    <div class="product">
+      <img src="2.jpg" alt="American Bobtail">
+      <h3>American Bobtail</h3>
+      <p>Dikenal dengan ekor pendek alami dan kepribadian ceria.</p>
+      <div class="rating">⭐⭐⭐⭐☆</div>
+      <div class="price">IDR 18.000.000</div>
+      <div class="actions">
+        <button class="fav-btn" id="fav-btn-AmericanBobtail" onclick="toggleFavorite('AmericanBobtail')">🤍</button>
+        <button class="cart-btn">Masukan Keranjang</button>
+      </div>
+    </div>
+  
+    <div class="product">
+      <img src="3.jpg" alt="American Curl">
+      <h3>American Curl</h3>
+      <p>Unik karena telinganya yang melengkung ke belakang.</p>
+      <div class="rating">⭐⭐⭐⭐⭐</div>
+      <div class="price">IDR 15.000.000</div>
+      <div class="actions">
+        <button class="fav-btn" id="fav-btn-AmericanCurl" onclick="toggleFavorite('AmericanCurl')">🤍</button>
+        <button class="cart-btn">Masukan Keranjang</button>
+      </div>
+    </div>
+  
+    <div class="product">
+      <img src="4.jpg" alt="American Shorthair">
+      <h3>American Shorthair</h3>
+      <p>Kucing berbadan kuat dan berbulu pendek.</p>
+      <div class="rating">⭐⭐⭐⭐☆</div>
+      <div class="price">IDR 16.000.000</div>
+      <div class="actions">
+        <button class="fav-btn" id="fav-btn-Americanshorthairl" onclick="toggleFavorite('Americanshorthair')">🤍</button>
+       <button class="cart-btn">Masukan Keranjang</button>
+      </div>
+    </div>
+  
+    <div class="product">
+      <img src="5.jpg" alt="Balinese">
+      <h3>Balinese</h3>
+      <p>Kucing anggun dengan bulu panjang dan mata biru.</p>
+      <div class="rating">⭐⭐⭐⭐☆</div>
+      <div class="price">IDR 20.000.000</div>
+      <div class="actions">
+        <button class="fav-btn" id="fav-btn-Balinese" onclick="toggleFavorite('Balinese')">🤍</button>
+        <button class="cart-btn">Masukan Keranjang</button>
+      </div>
+    </div>
+  
+    <div class="product">
+      <img src="6.jpg" alt="Bengal">
+      <h3>Bengal</h3>
+      <p>Bulu seperti macan tutul, aktif dan energik.</p>
+      <div class="rating">⭐⭐⭐⭐⭐</div>
+      <div class="price">IDR 25.000.000</div>
+      <div class="actions">
+        <button class="fav-btn" id="fav-btn-Bengal" onclick="toggleFavorite('Bengal')">🤍</button>
+        <button class="cart-btn">Masukan Keranjang</button>
+      </div>
+    </div>
+  
+    <div class="product">
+      <img src="7.jpg" alt="Birman">
+      <h3>Birman</h3>
+      <p>Kucing lembut dengan bulu panjang dan mata biru.</p>
+      <div class="rating">⭐⭐⭐⭐☆</div>
+      <div class="price">IDR 18.500.000</div>
+      <div class="actions">
+        <button class="fav-btn" id="fav-btn-Birman" onclick="toggleFavorite('Birman')">🤍</button>
+        <button class="cart-btn">Masukan Keranjang</button>
+      </div>
+    </div>
+  
+    <div class="product">
+      <img src="8.jpg" alt="Bombay">
+      <h3>Bombay</h3>
+      <p>Hitam pekat menyerupai miniatur panther.</p>
+      <div class="rating">⭐⭐⭐⭐☆</div>
+      <div class="price">IDR 10.000.000</div>
+      <div class="actions">
+        <button class="fav-btn" id="fav-btn-Bombay" onclick="toggleFavorite('Bombay')">🤍</button>
+        <button class="cart-btn">Masukan Keranjang</button>
+      </div>
+    </div>
+  
+    <div class="product">
+      <img src="9.jpg" alt="British Shorthair">
+      <h3>British Shorthair</h3>
+      <p>Kucing besar, tenang, dengan bulu tebal dan padat.</p>
+      <div class="rating">⭐⭐⭐⭐☆</div>
+      <div class="price">IDR 12.500.000</div>
+      <div class="actions">
+        <button class="fav-btn" id="fav-btn-BritishShorthair" onclick="toggleFavorite('BritishShorthair')">🤍</button>
+        <button class="cart-btn">Masukan Keranjang</button>
+      </div>
+    </div>
+  
+    <div class="product">
+        <img src="10.jpg" alt="Burmese">
+        <h3>Burmese</h3>
+        <p>Berbulu halus dan suka berada dekat manusia.</p>
+        <div class="rating">⭐⭐⭐⭐☆</div>
+        <div class="price">IDR 16.500.000</div>
+        <div class="actions">
+          <button class="fav-btn" id="fav-btn-Burmese" onclick="toggleFavorite('Burmese')">🤍</button>
+            <button class="cart-btn">Masukan Keranjang</button>
+        </div>
+      </div>
+    
+      <div class="product">
+        <img src="11.jpg" alt="Chartreux">
+        <h3>Chartreux</h3>
+        <p>Kucing asal Prancis dengan bulu abu-abu kebiruan.</p>
+        <div class="rating">⭐⭐⭐⭐☆</div>
+        <div class="price">IDR 18.000.000</div>
+        <div class="actions">
+          <button class="fav-btn" id="fav-btn-Chartreux" onclick="toggleFavorite('Chartreux')">🤍</button>
+          <button class="cart-btn">Masukan Keranjang</button>
+        </div>
+      </div>
+    
+      <div class="product">
+        <img src="13.jpg" alt="Cornish Rex">
+        <h3>Cornish Rex</h3>
+        <p>Bulu ikal unik dan tubuh ramping atletis.</p>
+        <div class="rating">⭐⭐⭐⭐☆</div>
+        <div class="price">IDR 22.000.000</div>
+        <div class="actions">
+          <button class="fav-btn" id="fav-btn-CornishRex" onclick="toggleFavorite('CornishRex')">🤍</button>
+          <button class="cart-btn">Masukan Keranjang</button>
+        </div>
+      </div>
+    
+      <div class="product">
+        <img src="14.jpg" alt="Devon Rex">
+        <h3>Devon Rex</h3>
+        <p>Telinga besar dan bulu keriting, sangat sosial.</p>
+        <div class="rating">⭐⭐⭐⭐⭐</div>
+        <div class="price">IDR 19.000.000</div>
+        <div class="actions">
+          <button class="fav-btn" id="fav-btn-DevonRex" onclick="toggleFavorite('DevonRex')">🤍</button>
+          <button class="cart-btn">Masukan Keranjang</button>
+        </div>
+      </div>
+    
+      <div class="product">
+        <img src="15.jpg" alt="Egyptian Mau">
+        <h3>Egyptian Mau</h3>
+        <p>Kucing dengan corak tutul alami ditubuhnya, cepat dan lincah.</p>
+        <div class="rating">⭐⭐⭐⭐☆</div>
+        <div class="price">IDR 27.000.000</div>
+        <div class="actions">
+          <button class="fav-btn" id="fav-btn-EgyptianMau" onclick="toggleFavorite('EgyptianMau')">🤍</button>
+          <button class="cart-btn">Masukan Keranjang</button>
+        </div>
+      </div>
+    
+      <div class="product">
+        <img src="16.jpg" alt="Exotic Shorthair">
+        <h3>Exotic Shorthair</h3>
+        <p>Versi berbulu pendek dari Persian, wajah datar manis.</p>
+        <div class="rating">⭐⭐⭐⭐☆</div>
+        <div class="price">IDR 20.000.000</div>
+        <div class="actions">
+          <button class="fav-btn" id="fav-btn-ExoticShorthair" onclick="toggleFavorite('ExoticShorthair')">🤍</button>
+          <button class="cart-btn">Masukan Keranjang</button>
+        </div>
+      </div>
+    
+      <div class="product">
+        <img src="17.jpg" alt="Havana Brown">
+        <h3>Havana Brown</h3>
+        <p>Bulu coklat mengilap dan berkarakter ramah.</p>
+        <div class="rating">⭐⭐⭐⭐☆</div>
+        <div class="price">IDR 28.000.000</div>
+        <div class="actions">
+          <button class="fav-btn" id="HavanaBrown" onclick="toggleFavorite('HavanaBrown')">🤍</button>
+          <button class="cart-btn">Masukan Keranjang</button>
+        </div>
+      </div>
+    
+      <div class="product">
+        <img src="18.jpg" alt="Himalayan">
+        <h3>Himalayan</h3>
+        <p>Campuran Persian dan Siamese, berbulu panjang dengan poin warna.</p>
+        <div class="rating">⭐⭐⭐⭐⭐</div>
+        <div class="price">IDR 26.000.000</div>
+        <div class="actions">
+          <button class="fav-btn" id="fav-btn-Himalayan" onclick="toggleFavorite('Himalayan')">🤍</button>
+          <button class="cart-btn">Masukan Keranjang</button>
+        </div>
+      </div>
+    
+      <div class="product">
+        <img src="19.jpg" alt="Japanese Bobtail">
+        <h3>Japanese Bobtail</h3>
+        <p>Memiliki ekor seperti pompom, simbol keberuntungan di Jepang.</p>
+        <div class="rating">⭐⭐⭐⭐☆</div>
+        <div class="price">IDR 17.500.000</div>
+        <div class="actions">
+          <button class="fav-btn" id="fav-btn-JapaneseBobtail" onclick="toggleFavorite('JapaneseBobtail')">🤍</button>
+          <button class="cart-btn">Masukan Keranjang</button>
+          </div>
+      </div>
+    
+      <div class="product">
+        <img src="20.jpg" alt="Korat">
+        <h3>Korat</h3>
+        <p>Kucing Thailand dengan bulu perak kebiruan dan mata hijau cerah.</p>
+        <div class="rating">⭐⭐⭐⭐☆</div>
+        <div class="price">IDR 24.000.000</div>
+        <div class="actions">
+          <button class="fav-btn" id="fav-btn-Korat" onclick="toggleFavorite('Korat')">🤍</button>
+          <button class="cart-btn">Masukan Keranjang</button>
+        </div>
+      </div>
+    
+      <div class="product">
+        <img src="21.jpg" alt="Maine Coon">
+        <h3>Maine Coon</h3>
+        <p>Salah satu ras terbesar, sangat ramah dan berbulu lebat.</p>
+        <div class="rating">⭐⭐⭐⭐⭐</div>
+        <div class="price">IDR 35.000.000</div>
+        <div class="actions">
+          <button class="fav-btn" id="fav-btn-MaineCoon" onclick="toggleFavorite('MaineCoon')">🤍</button>
+          <button class="cart-btn">Masukan Keranjang</button>
+        </div>
+      </div>
+    
+      <div class="product">
+        <img src="22.jpg" alt="Manx">
+        <h3>Manx</h3>
+        <p>Kucing tanpa ekor atau berekor pendek, sangat lincah.</p>
+        <div class="rating">⭐⭐⭐⭐☆</div>
+        <div class="price">IDR 16.500.000</div>
+        <div class="actions">
+          <button class="fav-btn" id="fav-btn-Manx" onclick="toggleFavorite('Manx')">🤍</button>
+          <button class="cart-btn">Masukan Keranjang</button>
+        </div>
+      </div>
+    
+      <div class="product">
+        <img src="23.jpg" alt="Norwegian Forest">
+        <h3>Norwegian Forest</h3>
+        <p>Bulu lebat dan kuat, berasal dari Skandinavia.</p>
+        <div class="rating">⭐⭐⭐⭐⭐</div>
+        <div class="price">IDR 28.000.000</div>
+        <div class="actions">
+          <button class="fav-btn" id="fav-btn-NorwegianForest" onclick="toggleFavorite('NorwegianForest')">🤍</button>
+          <button class="cart-btn">Masukan Keranjang</button>
+        </div>
+      </div>
+    
+      <div class="product">
+        <img src="24.jpg" alt="Ocicat">
+        <h3>Ocicat</h3>
+        <p>Berpenampilan liar seperti ocelot, tapi sepenuhnya domestik.</p>
+        <div class="rating">⭐⭐⭐⭐☆</div>
+        <div class="price">IDR 22.500.000</div>
+        <div class="actions">
+        <button class="fav-btn" id="fav-btn-Ocicat" onclick="toggleFavorite('Ocicat')">🤍</button>
+          <button class="cart-btn">Masukan Keranjang</button>
+        </div>
+      </div>
+    
+      <div class="product">
+        <img src="25.jpg" alt="Persian">
+        <h3>Persian</h3>
+        <p>Kucing berbulu panjang dengan wajah datar khas.</p>
+        <div class="rating">⭐⭐⭐⭐☆</div>
+        <div class="price">IDR 30.000.000</div>
+        <div class="actions">
+          <button class="fav-btn" id="fav-btn-Persian" onclick="toggleFavorite('Persian')">🤍</button>
+          <button class="cart-btn">Masukan Keranjang</button>
+        </div>
+      </div>
+    
+      <div class="product">
+        <img src="26.jpg" alt="Ragamuffin">
+        <h3>Ragamuffin</h3>
+        <p>Kucing besar dan berbulu panjang, sangat ramah dan penuh kasih.</p>
+        <div class="rating">⭐⭐⭐⭐☆</div>
+        <div class="price">IDR 24.500.000</div>
+        <div class="actions">
+          <button class="fav-btn" id="fav-btn-Ragamuffin" onclick="toggleFavorite('Ragamuffin')">🤍</button>
+
+          <button class="cart-btn">Masukan Keranjang</button>
+        </div>
+      </div>
+    
+      <div class="product">
+        <img src="27.jpg" alt="Ragdoll">
+        <h3>Ragdoll</h3>
+        <p>Kucing besar, bulu panjang, terkenal dengan kepribadiannya yang jinak.</p>
+        <div class="rating">⭐⭐⭐⭐⭐</div>
+        <div class="price">IDR 30.000.000</div>
+        <div class="actions">
+          <button class="fav-btn" id="fav-btn-Ragdoll" onclick="toggleFavorite('Ragdoll')">🤍</button>
+          <button class="cart-btn">Masukan Keranjang</button>
+        </div>
+      </div>
+    
+      <div class="product">
+        <img src="28.jpg" alt="Russian Blue">
+        <h3>Russian Blue</h3>
+        <p>Bulu perak kebiruan dan mata hijau cerah, sangat elegan.</p>
+        <div class="rating">⭐⭐⭐⭐☆</div>
+        <div class="price">IDR 22.000.000</div>
+        <div class="actions">
+          <button class="fav-btn" id="fav-btn-RussianBlue" onclick="toggleFavorite('RussianBlue')">🤍</button>
+          <button class="cart-btn">Masukan Keranjang</button>
+        </div>
+      </div>
+
+      <div class="product">
+        <img src="12.jpg" alt="Savannah">
+        <h3>Savannah</h3>
+        <p>Kucing dengan tubuh tinggi, corak tutul liar, aktif dan cerdas.</p>
+        <div class="rating">⭐⭐⭐⭐⭐</div>
+        <div class="price">IDR 80.000.000</div>
+        <div class="actions">
+          <button class="fav-btn" id="fav-btn-Savannah" onclick="toggleFavorite('Savannah')">🤍</button>
+          <button class="cart-btn">Masukan Keranjang</button>
+        </div>
+      </div>      
+    
+      <div class="product">
+        <img src="29.jpg" alt="Scottish Fold">
+        <h3>Scottish Fold</h3>
+        <p>Unik dengan telinga melipat ke depan, sangat ramah dan manja.</p>
+        <div class="rating">⭐⭐⭐⭐⭐</div>
+        <div class="price">IDR 24.000.000</div>
+        <div class="actions">
+          <button class="fav-btn" id="fav-btn-ScottishFold" onclick="toggleFavorite('ScottishFold')">🤍</button>
+          <button class="cart-btn">Masukan Keranjang</button>
+        </div>
+      </div>
+
+      <div class="product">
+        <img src="30.jpg" alt="Siamese">
+        <h3>Siamese</h3>
+        <p>Kucing vokal dengan mata biru dan pola warna khas poin.</p>
+        <div class="rating">⭐⭐⭐⭐⭐</div>
+        <div class="price">IDR 10.000.000</div>
+        <div class="actions">
+          <button class="fav-btn" id="fav-btn-Siamese" onclick="toggleFavorite('Siamese')">🤍</button>
+          <button class="cart-btn">Masukan Keranjang</button>
+        </div>
+      </div>
+    
+      <div class="product">
+        <img src="31.jpg" alt="Sphynx">
+        <h3>Sphynx</h3>
+        <p>Kucing tanpa bulu, hangat dan sangat sosial.</p>
+        <div class="rating">⭐⭐⭐⭐⭐</div>
+        <div class="price">IDR 25.000.000</div>
+        <div class="actions">
+          <button class="fav-btn" id="fav-btn-Sphynx" onclick="toggleFavorite('Sphynx')">🤍</button>
+          <button class="cart-btn">Masukan Keranjang</button>
+        </div>
+      </div>
+    
+      <div class="product">
+        <img src="32.jpg" alt="Turkish Angora">
+        <h3>Turkish Angora</h3>
+        <p>Kucing elegan dengan bulu halus dan mata yang sering heterokromia.</p>
+        <div class="rating">⭐⭐⭐⭐☆</div>
+        <div class="price">IDR 12.000.000</div>
+        <div class="actions">
+          <button class="fav-btn" id="fav-btn-Turkishangora" onclick="toggleFavorite('Turkishangora')">🤍</button>
+          <button class="cart-btn">Masukan Keranjang</button>
+        </div>
+      </div>
+  </section>
+
+  <footer>
+    <div class="footer-content">
+      <p>&copy; 2025 Cats. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Ambil email user yang sedang login
+    function getLoggedInUserEmail() {
+      return localStorage.getItem('loggedInEmail');
+    }
+  
+    function getFavoritesKey() {
+      const email = getLoggedInUserEmail();
+      return email ? `favorites_${email}` : null;
+    }
+  
+    // Toggle status favorit
+    function toggleFavorite(productId) {
+      const key = getFavoritesKey();
+      if (!key) {
+        alert('Silakan login terlebih dahulu untuk menambahkan ke favorit.');
+        return;
+      }
+  
+      let favorites = JSON.parse(localStorage.getItem(key)) || [];
+  
+      if (favorites.includes(productId)) {
+        favorites = favorites.filter(id => id !== productId);
+      } else {
+        favorites.push(productId);
+      }
+  
+      localStorage.setItem(key, JSON.stringify(favorites));
+      updateFavoriteButton(productId);
+    }
+  
+    // Update ikon tombol favorit
+    function updateFavoriteButton(productId) {
+      const btn = document.getElementById('fav-btn-' + productId);
+      const key = getFavoritesKey();
+      if (!btn || !key) return;
+  
+      const favorites = JSON.parse(localStorage.getItem(key)) || [];
+  
+      if (favorites.includes(productId)) {
+        btn.innerHTML = '❤️';
+      } else {
+        btn.innerHTML = '🤍';
+      }
+    }
+  
+    // Update semua tombol favorit saat halaman dimuat
+    function updateAllFavoriteButtons() {
+      const productIds = [
+        'Abyssinian', 'AmericanBobtail', 'AmericanCurl', 'AmericanShorthair',
+        'Balinese', 'Bengal', 'Birman', 'Bombay', 'BritishShorthair', 'Burmese'
+      ];
+  
+      productIds.forEach(id => updateFavoriteButton(id));
+    }
+  
+    // Fungsi tambah ke keranjang
+    function addToCart(product) {
+      let cart = JSON.parse(localStorage.getItem("cartItems")) || [];
+      const existing = cart.find(item => item.name === product.name);
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        product.quantity = 1;
+        cart.push(product);
+      }
+      localStorage.setItem("cartItems", JSON.stringify(cart));
+    }
+  
+    // Event untuk tombol keranjang
+    document.querySelectorAll(".cart-btn").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const productElement = btn.closest(".product");
+        const name = productElement.querySelector("h3").textContent;
+        const priceText = productElement.querySelector(".price").textContent;
+        const imageSrc = productElement.querySelector("img").src;
+        const description = productElement.querySelector("p").textContent;
+  
+        const product = {
+          name: name,
+          price: priceText,
+          image: imageSrc,
+          description: description
+        };
+  
+        addToCart(product);
+        window.location.href = "cart.html";
+      });
+    });
+  
+    // Jalankan saat halaman dimuat
+    window.onload = () => {
+      updateAllFavoriteButtons();
+    };
+  </script>
+
+</body>
+</html>
+

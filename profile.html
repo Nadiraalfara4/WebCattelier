@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Akun Saya | Cattelier</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap');
+
+    :root {
+      --accent-beige: #d5a877;
+      --dark-bg: #0e0c0a;
+      --light-text: #fff;
+      --input-bg: #1f1b17;
+      --gold-border: #bfa46f;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, #0e0c0a, #2a2117);
+      font-family: 'Arial', sans-serif;
+      color: var(--light-text);
+      min-height: 100vh;
+      padding-top: 100px;
+      padding-bottom: 100px;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(15, 10, 5, 0.9);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--accent-beige);
+      font-weight: bold;
+    }
+
+    nav a {
+      color: var(--light-text);
+      text-decoration: none;
+      margin-left: 1.5rem;
+      font-weight: bold;
+      font-size: 0.95rem;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover,
+    nav a.active {
+      color: var(--accent-beige);
+    }
+
+    main {
+      max-width: 600px;
+      margin: auto;
+      padding: 0 20px;
+    }
+
+    .account-container {
+      background-color: #1a1a1a;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 25px rgba(213, 168, 119, 0.15);
+      border: 1px solid var(--gold-border);
+      animation: fadeIn 1s ease-out;
+    }
+
+    h2 {
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      color: var(--accent-beige);
+      margin-bottom: 25px;
+    }
+
+    .profile {
+      text-align: center;
+    }
+
+    .profile img {
+      width: 100px;
+      border-radius: 50%;
+      border: 2px solid var(--accent-beige);
+      margin-bottom: 10px;
+    }
+
+    .profile h3 {
+      font-size: 20px;
+      margin-bottom: 5px;
+    }
+
+    .profile p {
+      font-size: 0.95rem;
+      color: #ccc;
+      margin-bottom: 20px;
+    }
+
+    .actions button {
+      background-color: var(--accent-beige);
+      color: #000;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: bold;
+      font-family: 'Playfair Display', serif;
+      margin: 10px 0;
+      cursor: pointer;
+      width: 100%;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .actions button:hover {
+      background-color: #c0975f;
+      transform: scale(1.02);
+    }
+
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: #1a1612;
+      color: #bbb;
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      border-top: 1px solid #333;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">Cattelier</div>
+    <nav>
+      <a href="home.html" class="nav-link">Home</a>
+      <a href="shop.html" class="nav-link">Cats</a>
+      <a href="favorit.html" class="nav-link">Favorit</a>
+      <a href="cart.html" class="nav-link">Cart</a>
+      <a href="checkout.html" class="nav-link">Checkout</a>
+      <a href="invoice.html" class="nav-link">Invoice</a>
+      <a href="profile.html" class="nav-link">Profile</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="account-container">
+      <h2>Profil Saya <br>🐱</h2>
+
+      <div class="profile">
+        <h3 id="userName">Nama</h3>
+        <p id="userEmail">Email</p>
+      </div>
+
+      <div class="actions">
+        <a href="editProfile.html">
+          <button>Edit Profil ✏️ </button>
+        </a>
+        <a href="riwayat.html">
+          <button>🧾 Riwayat Pembelian</button>
+        </a>
+        <button onclick="logout()">🚪 Keluar</button>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2025 Cattelier. Terima kasih telah menjadi bagian dari keluarga kami 🐾
+  </footer>
+
+  <script>
+    const user = JSON.parse(localStorage.getItem('currentUser'));
+
+    if (user) {
+      document.getElementById('userName').textContent = user.nama;
+      document.getElementById('userEmail').textContent = user.email;
+    } else {
+      alert("Silakan login terlebih dahulu.");
+      window.location.href = "login.html";
+    }
+
+    function logout() {
+      localStorage.removeItem('currentUser');
+      window.location.href = "login.html";
+    }
+  </script>
+
+</body>
+</html>

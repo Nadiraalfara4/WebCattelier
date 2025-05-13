@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Keranjang Belanja | Cattelier</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap');
+
+    :root {
+      --accent-beige: #f1c27d;
+      --dark-bg: #0f0f0f;
+      --dark-brown: #2a2117;
+      --soft-bg: #1a1a1a;
+    }
+
+    body {
+      background-color: var(--dark-bg);
+      font-family: 'Arial', sans-serif;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #000;
+      padding: 20px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: bold;
+      color: var(--accent-beige);
+    }
+
+    nav a {
+      color: #fff;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover,
+    nav a.active {
+      color: var(--accent-beige);
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 50px;
+      color: var(--accent-beige);
+      font-size: 2rem;
+      font-family: 'Playfair Display', serif;
+      font-weight: bold;
+      animation: fadeIn 1s ease-out;
+    }
+
+    .cart-table {
+      width: 85%;
+      margin: 30px auto;
+      border-collapse: collapse;
+      background: linear-gradient(145deg, rgba(28, 28, 28, 0.9), rgba(10, 10, 10, 0.9));
+      border-radius: 20px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6);
+      overflow: hidden;
+      transition: all 0.3s ease;
+      animation: fadeIn 1s ease-out;
+    }
+
+    .cart-table th, .cart-table td {
+      padding: 15px;
+      text-align: center;
+      font-size: 1rem;
+      border-bottom: 1px solid #333;
+    }
+
+    .cart-table th {
+      background-color: #111;
+      color: var(--accent-beige);
+      font-weight: bold;
+    }
+
+    .cart-table td {
+      background-color: var(--dark-brown);
+      color: #fff;
+    }
+
+    .cart-table td img {
+      width: 90px;
+      border-radius: 10px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .cart-table td img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 15px rgba(255, 165, 0, 0.7);
+    }
+
+    .checkout-btn {
+      display: block;
+      margin: 40px auto;
+      background-color: #f8d8a6;
+      color: var(--dark-brown);
+      padding: 14px 30px;
+      border: none;
+      border-radius: 30px;
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
+      cursor: pointer;
+      width: 80%;
+      box-shadow: 0 4px 15px rgba(255, 165, 0, 0.3);
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      animation: fadeIn 1.2s ease-out;
+      text-decoration: none;
+    }
+
+    .checkout-btn:hover {
+      background-color: #e4be88;
+      transform: scale(1.03);
+    }
+
+    footer {
+      background-color: var(--soft-bg);
+      color: var(--accent-beige);
+      text-align: center;
+      padding: 20px 10px;
+      font-size: 0.95rem;
+      box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.3);
+      margin-top: 60px;
+      animation: fadeIn 1.5s ease-out;
+    }
+
+    footer a {
+      color: var(--accent-beige);
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      .cart-table {
+        width: 95%;
+      }
+
+      .checkout-btn {
+        font-size: 16px;
+        padding: 12px 25px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">Cattelier</div>
+    <nav>
+      <a href="home.html">Home</a>
+      <a href="shop.html">Cats</a>
+      <a href="favorit.html">Favorit</a>
+      <a href="cart.html" class="active">Cart</a>
+      <a href="checkout.html">Checkout</a>
+      <a href="invoice.html">Invoice</a>
+      <a href="profile.html">Profile</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <h1>Keranjang Belanja</h1>
+
+  <table class="cart-table">
+    <thead>
+      <tr>
+        <th>Produk</th>
+        <th>Harga</th>
+        <th>Jumlah</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody id="cart-body">
+      <!-- Diisi lewat JavaScript -->
+    </tbody>
+  </table>
+
+  <a href="checkout.html" class="checkout-btn">Lanjut ke Checkout</a>
+
+  <footer>
+    <p>&copy; 2025 <strong>Cattelier</strong>. All rights reserved.</p>
+    <p>
+      <a href="privacy.html">Kebijakan Privasi</a> |
+      <a href="terms.html">Syarat & Ketentuan</a>
+    </p>
+  </footer>
+
+  <script>
+    function parsePrice(priceStr) {
+      return Number(priceStr.replace(/IDR|\./g, '').trim());
+    }
+
+    function formatPrice(num) {
+      return "IDR " + num.toLocaleString("id-ID");
+    }
+
+    function loadCart() {
+      const cartBody = document.getElementById("cart-body");
+      let cart = JSON.parse(localStorage.getItem("cartItems")) || [];
+      cartBody.innerHTML = "";
+
+      cart.forEach(item => {
+        const priceNum = parsePrice(item.price);
+        const total = priceNum * item.quantity;
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>
+            <img src="${item.image}" alt="${item.name}"><br>
+            ${item.name}
+          </td>
+          <td>${item.price}</td>
+          <td>${item.quantity}</td>
+          <td>${formatPrice(total)}</td>
+        `;
+        cartBody.appendChild(row);
+      });
+    }
+
+    window.onload = loadCart;
+  </script>
+</body>
+</html>

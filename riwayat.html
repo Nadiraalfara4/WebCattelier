@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Riwayat Pembelian | Cattelier</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap');
+
+    :root {
+      --accent-beige: #d5a877;
+      --dark-bg: #0e0c0a;
+      --card-bg: #1a1a1a;
+      --text-color: #ffffff;
+      --gold-border: #bfa46f;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, #0e0c0a, #2a2117);
+      font-family: Arial, sans-serif;
+      color: var(--text-color);
+      padding-top: 90px;
+      min-height: 100vh;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: rgba(15, 10, 5, 0.95);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--accent-beige);
+      font-weight: bold;
+    }
+
+    nav a {
+      color: var(--text-color);
+      text-decoration: none;
+      margin-left: 1.5rem;
+      font-weight: bold;
+      font-size: 0.95rem;
+    }
+
+    nav a:hover,
+    nav a.active {
+      color: var(--accent-beige);
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+      padding: 2rem 1rem;
+    }
+
+    h2 {
+      text-align: center;
+      color: var(--accent-beige);
+      font-family: 'Playfair Display', serif;
+      margin-bottom: 2rem;
+    }
+
+    .invoice-box {
+      background-color: var(--card-bg);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      border-radius: 10px;
+      border: 1px solid var(--gold-border);
+      box-shadow: 0 0 25px rgba(213, 168, 119, 0.1);
+      animation: fadeIn 1s ease;
+    }
+
+    .invoice-box h3 {
+      color: #f1c27d;
+      margin-bottom: 10px;
+    }
+
+    .invoice-box p {
+      margin: 6px 0;
+    }
+
+    table {
+      width: 100%;
+      margin-top: 10px;
+      border-collapse: collapse;
+      background-color: #111;
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #333;
+      font-size: 0.95rem;
+    }
+
+    th {
+      background-color: #222;
+    }
+
+    .total {
+      text-align: right;
+      font-weight: bold;
+      margin-top: 10px;
+      color: #f26522;
+    }
+
+    footer {
+      background-color: #1a1612;
+      color: #bbb;
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      border-top: 1px solid #333;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">Cattelier</div>
+    <nav>
+        <a href="home.html">Home</a>
+        <a href="shop.html">Cats</a>
+        <a href="cart.html">Cart</a>
+        <a href="checkout.html">Checkout</a>
+        <a href="invoice.html">Invoice</a>
+        <a href="profile.html">Profile</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <h2>📜 Riwayat Pembelian</h2>
+    <div id="riwayatContainer"></div>
+  </div>
+  
+  <script>
+    const container = document.getElementById('riwayatContainer');
+    const user = JSON.parse(localStorage.getItem("loggedInUser"));
+  
+    if (!user) {
+      container.innerHTML = '<p style="text-align:center;">Anda belum login, silakan login untuk melihat riwayat pembelian.</p>';
+    } else {
+      const userEmail = user.email;
+  
+      // Cek apakah ini email baru yang login
+      const lastLoggedEmail = localStorage.getItem("lastLoggedInEmail");
+      if (lastLoggedEmail !== userEmail) {
+        // Simpan email terbaru
+        localStorage.setItem("lastLoggedInEmail", userEmail);
+  
+        // Inisialisasi riwayat kosong jika belum ada
+        if (!localStorage.getItem("riwayatInvoices_" + userEmail)) {
+          localStorage.setItem("riwayatInvoices_" + userEmail, JSON.stringify([]));
+        }
+      }
+  
+      const invoices = JSON.parse(localStorage.getItem('riwayatInvoices_' + userEmail)) || [];
+  
+      if (invoices.length === 0) {
+        container.innerHTML = '<p style="text-align:center;">Belum ada riwayat pembelian untuk akun ini.</p>';
+      } else {
+        // Hapus duplikat berdasarkan kode invoice
+        const uniqueInvoices = [];
+        const seenCodes = new Set();
+  
+        for (const inv of invoices.reverse()) {
+          if (!seenCodes.has(inv.kode)) {
+            seenCodes.add(inv.kode);
+            uniqueInvoices.push(inv);
+          }
+        }
+  
+        uniqueInvoices.forEach((invoice) => {
+          const box = document.createElement('div');
+          box.className = 'invoice-box';
+  
+          const itemRows = invoice.items.map(item => `
+            <tr>
+              <td>${item.nama}</td>
+              <td>${item.jumlah}</td>
+              <td>${item.harga}</td>
+              <td>${item.subtotal}</td>
+            </tr>
+          `).join('');
+  
+          box.innerHTML = `
+            <h3>🧾 Invoice #${invoice.kode}</h3>
+            <p><strong>Tanggal:</strong> ${invoice.tanggal}</p>
+            <p><strong>Status:</strong> ${invoice.status}</p>
+            <table>
+              <thead>
+                <tr>
+                  <th>Produk</th>
+                  <th>Jumlah</th>
+                  <th>Harga</th>
+                  <th>Subtotal</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${itemRows}
+              </tbody>
+            </table>
+            <p class="total">Total: ${invoice.total}</p>
+          `;
+  
+          container.appendChild(box);
+        });
+      }
+    }
+  </script>  
+  <footer>
+    &copy; 2025 Cattelier. Menjual kucing bukan biasa, tapi luar biasa 🐱✨
+  </footer>
+
+</body>
+</html>

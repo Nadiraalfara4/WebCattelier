@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login | Cattelier</title>
+  <style>
+    :root {
+      --accent-beige: #d5a877;
+      --dark-bg: #000;
+      --light-text: #fff;
+      --input-bg: #1a1a1a;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: var(--dark-bg);
+      color: var(--light-text);
+      min-height: 100vh;
+      background-image: url('b.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .form-box {
+      background-color: rgba(0,0,0,0.85);
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 0 15px var(--accent-beige);
+      width: 90%;
+      max-width: 400px;
+      animation: fadeIn 1s ease;
+    }
+
+    .form-box h2 {
+      font-family: 'Times New Roman', serif;
+      margin-bottom: 1.5rem;
+      color: var(--accent-beige);
+      font-size: 28px;
+      text-align: center;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 1rem;
+      border: none;
+      border-radius: 10px;
+      background-color: var(--input-bg);
+      color: var(--light-text);
+      font-size: 1rem;
+      display: block;
+    }
+
+    .btn {
+      background-color: var(--accent-beige);
+      color: #000;
+      border: none;
+      padding: 12px;
+      width: 100%;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #c0975f;
+    }
+
+    p {
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    a {
+      color: var(--accent-beige);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="form-box">
+    <h2>Masuk ke Cattelier🐾</h2>
+    <form onsubmit="return validateLogin(event)">
+      <input type="email" id="email" placeholder="Alamat Email" required />
+      <input type="password" id="password" placeholder="Kata Sandi" required />
+      <button type="submit" class="btn">Login</button>
+    </form>
+    <p>Belum punya akun? <a href="register.html">Daftar di sini</a></p>
+  </div>
+
+  <script>
+    function validateLogin(event) {
+      event.preventDefault();
+
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      if (!email || !password) {
+        alert('Mohon isi semua kolom!');
+        return false;
+      }
+
+      const storedEmail = localStorage.getItem('registeredEmail');
+      const storedPassword = localStorage.getItem('registeredPassword');
+      const storedNama = localStorage.getItem('registeredNama') || "Pengguna";
+      const storedAlamat = localStorage.getItem('registeredAlamat') || "";
+      const storedTelepon = localStorage.getItem('registeredTelepon') || "";
+
+      if (!storedEmail || !storedPassword) {
+        alert('Anda belum terdaftar. Silakan daftar terlebih dahulu.');
+        window.location.href = 'register.html';
+        return false;
+      }
+
+      if (email === storedEmail && password === storedPassword) {
+        const currentUser = {
+          email: storedEmail,
+          password: storedPassword,
+          nama: storedNama,
+          alamat: storedAlamat,
+          telepon: storedTelepon
+        };
+
+        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+        window.location.href = 'home.html';
+      } else {
+        alert('Email atau kata sandi salah.');
+      }
+      localStorage.setItem('loggedInEmail', email);
+
+    }const user = { email: "user@example.com", name: "Nama User" };
+    localStorage.setItem("loggedInUser", JSON.stringify(user));
+    
+  </script>
+</body>
+</html>

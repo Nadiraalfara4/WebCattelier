@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Checkout | Cattelier</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap');
+
+    :root {
+      --accent-beige: #d5a877;
+      --dark-bg: #0e0c0a;
+      --light-text: #fff;
+      --input-bg: #1f1b17;
+      --gold-border: #bfa46f;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, #0e0c0a, #2a2117);
+      font-family: 'Arial', sans-serif;
+      color: var(--light-text);
+      padding: 80px 20px 120px;
+      min-height: 100vh;
+      overflow-y: auto;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: rgba(15, 10, 5, 0.9);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--accent-beige);
+      font-weight: bold;
+    }
+
+    nav a {
+      color: var(--light-text);
+      text-decoration: none;
+      margin-left: 1.5rem;
+      font-weight: bold;
+      font-size: 0.95rem;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover,
+    nav a.active {
+      color: var(--accent-beige);
+    }
+
+    .checkout-container {
+      max-width: 700px;
+      margin: auto;
+      background-color: #1a1a1a;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 25px rgba(213, 168, 119, 0.15);
+      border: 1px solid var(--gold-border);
+      animation: fadeIn 1s ease-out;
+    }
+
+    h2 {
+      color: var(--accent-beige);
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      margin-bottom: 30px;
+    }
+
+    .summary {
+      margin-bottom: 25px;
+    }
+
+    .summary img {
+      width: 80px;
+      border-radius: 10px;
+      vertical-align: middle;
+      margin-right: 15px;
+    }
+
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #111;
+      padding: 12px 16px;
+      margin-bottom: 10px;
+      border-radius: 10px;
+      border: 1px solid #333;
+    }
+
+    .summary-item span {
+      font-size: 15px;
+    }
+
+    .summary-item .actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .summary-item button {
+      background-color: var(--accent-beige);
+      color: #000;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .summary-item button:hover {
+      background-color: #c0975f;
+    }
+
+    form label {
+      display: block;
+      margin: 10px 0 5px;
+      font-weight: bold;
+      font-size: 0.95rem;
+    }
+
+    form input,
+    form select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--gold-border);
+      border-radius: 10px;
+      background-color: var(--input-bg);
+      color: var(--light-text);
+      font-size: 1rem;
+      margin-bottom: 15px;
+    }
+
+    .btn {
+      background-color: var(--accent-beige);
+      color: #000;
+      border: none;
+      padding: 14px;
+      width: 100%;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-family: 'Playfair Display', serif;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .btn:hover {
+      background-color: #c0975f;
+      transform: scale(1.03);
+    }
+
+    .total {
+      text-align: right;
+      font-size: 18px;
+      font-weight: bold;
+      color: var(--accent-beige);
+      margin: 10px 0 20px;
+    }
+
+    footer {
+      position: static;
+      background-color: #1a1612;
+      color: #bbb;
+      text-align: center;
+      padding: 1.2rem 1rem;
+      font-size: 0.9rem;
+      border-top: 1px solid #333;
+      margin-top: 50px;
+    }
+    
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">Cattelier</div>
+    <nav>
+      <a href="home.html" class="nav-link">Home</a>
+      <a href="shop.html" class="nav-link">Cats</a>
+      <a href="favorit.html" class="nav-link">Favorit</a>
+      <a href="cart.html" class="nav-link">Cart</a>
+      <a href="checkout.html" class="nav-link">Checkout</a>
+      <a href="invoice.html" class="nav-link">Invoice</a>
+      <a href="profile.html" class="nav-link">Profile</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+    </nav>
+  </header>
+
+  <div class="checkout-container">
+    <h2>Check Out Pesanan 🐾</h2>
+
+    <div class="summary" id="order-summary">
+      <!-- Ringkasan produk di sini -->
+    </div>
+
+    <p class="total" id="total-price">Total: IDR 0</p>
+
+    <form id="checkout-form">
+      <label for="nama">👤 Nama Lengkap</label>
+      <input type="text" id="nama" required>
+
+      <label for="alamat">📍 Alamat Pengiriman</label>
+      <input type="text" id="alamat" required>
+
+      <label for="pembayaran">💳 Metode Pembayaran</label>
+<select id="pembayaran" required>
+  <option value="">-- Pilih --</option>
+  <optgroup label="Transfer Bank">
+    <option value="bca">Bank BCA</option>
+    <option value="bni">Bank BNI</option>
+    <option value="mandiri">Bank Mandiri</option>
+    <option value="bri">Bank BRI</option>
+  </optgroup>
+  <optgroup label="E-Wallet">
+    <option value="ovo">OVO</option>
+    <option value="gopay">GoPay</option>
+    <option value="dana">DANA</option>
+    <option value="shopeepay">ShopeePay</option>
+    <option value="linkaja">LinkAja</option>
+  </optgroup>
+  <option value="qris">QRIS</option>
+  <option value="cod">Cash on Delivery</option>
+  <option value="kartu">Kartu Kredit/Debit</option>
+  <option value="va">Virtual Account</option>
+</select>
+
+<button type="submit" class="btn">Beli Sekarang</button>
+</form>
+  </div>
+
+  <footer>
+    &copy; 2025 Cattelier. Terima kasih sudah mempercayakan adopsi 🐱 Anda kepada kami ✨
+  </footer>
+
+  <script>
+    // Fungsi untuk parsing dan format harga
+    function parsePrice(priceStr) {
+      return Number(priceStr.replace(/IDR|\./g, '').trim());
+    }
+    function formatPrice(num) {
+      return "IDR " + num.toLocaleString("id-ID");
+    }
+  
+    // Tampilkan ringkasan pesanan dari localStorage
+    function loadOrderSummary() {
+      const summaryContainer = document.getElementById("order-summary");
+      let cart = JSON.parse(localStorage.getItem("cartItems")) || [];
+      summaryContainer.innerHTML = "";
+      let grandTotal = 0;
+  
+      cart.forEach((item, index) => {
+        const priceNum = parsePrice(item.price);
+        const itemTotal = priceNum * item.quantity;
+        grandTotal += itemTotal;
+        const div = document.createElement("div");
+        div.classList.add("summary-item");
+        div.innerHTML = `
+          <span><img src="${item.image}" alt="${item.name}"> ${item.name} (x${item.quantity})</span>
+          <span>${formatPrice(itemTotal)}</span>
+          <div class="actions">
+            <button onclick="updateQuantity(${index}, 1)">Tambah</button>
+            <button onclick="updateQuantity(${index}, -1)">Kurang</button>
+            <button onclick="removeItem(${index})">Hapus</button>
+          </div>
+        `;
+        summaryContainer.appendChild(div);
+      });
+  
+      document.getElementById("total-price").textContent = "Total: " + formatPrice(grandTotal);
+    }
+  
+    // Update kuantitas item
+    function updateQuantity(index, change) {
+      let cart = JSON.parse(localStorage.getItem("cartItems")) || [];
+      if (cart[index].quantity + change > 0) {
+        cart[index].quantity += change;
+      }
+      localStorage.setItem("cartItems", JSON.stringify(cart));
+      loadOrderSummary();
+    }
+  
+    // Hapus item
+    function removeItem(index) {
+      let cart = JSON.parse(localStorage.getItem("cartItems")) || [];
+      cart.splice(index, 1);
+      localStorage.setItem("cartItems", JSON.stringify(cart));
+      loadOrderSummary();
+    }
+  
+    window.onload = loadOrderSummary;
+  
+    // Tangani form checkout
+    document.getElementById("checkout-form").addEventListener("submit", function (e) {
+      e.preventDefault();
+  
+      const buyer = {
+        nama: document.getElementById("nama").value,
+        alamat: document.getElementById("alamat").value,
+        pembayaran: document.getElementById("pembayaran").value
+      };
+  
+      let cart = JSON.parse(localStorage.getItem("cartItems")) || [];
+      let grandTotal = 0;
+      let itemsInvoice = [];
+  
+      cart.forEach(item => {
+        const subtotal = parsePrice(item.price) * item.quantity;
+        grandTotal += subtotal;
+        itemsInvoice.push({
+          nama: item.name,
+          jumlah: item.quantity,
+          harga: item.price,
+          subtotal: formatPrice(subtotal)
+        });
+      });
+  
+      const user = JSON.parse(localStorage.getItem("loggedInUser"));
+      const userEmail = user?.email;
+  
+      if (!userEmail) {
+        alert("Anda harus login terlebih dahulu.");
+        return;
+      }
+  
+      const invoiceData = {
+        buyer: buyer,
+        items: cart,
+        total: grandTotal,
+        tanggal: new Date().toLocaleString("id-ID")
+      };
+  
+      // Simpan invoice per pengguna
+      localStorage.setItem("invoiceData_" + userEmail, JSON.stringify(invoiceData));
+  
+      // Simpan ke riwayat per pengguna
+      const userHistoryKey = "riwayatInvoices_" + userEmail;
+      const invoiceList = JSON.parse(localStorage.getItem(userHistoryKey)) || [];
+  
+      const newInvoice = {
+        kode: Date.now().toString(), // Kode unik dari timestamp
+        tanggal: new Date().toLocaleDateString("id-ID"),
+        status: "Selesai",
+        total: formatPrice(grandTotal),
+        items: itemsInvoice
+      };
+  
+      invoiceList.push(newInvoice);
+      localStorage.setItem(userHistoryKey, JSON.stringify(invoiceList));
+  
+      alert("Pembayaran berhasil! Terima kasih telah berbelanja di Cattelier 🧡");
+  
+      localStorage.removeItem("cartItems");
+      window.location.href = "invoice.html";
+    });
+  </script>
+  
+</body>
+</html>

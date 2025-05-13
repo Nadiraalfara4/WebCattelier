@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About | Cattelier</title>
+  <style>
+    :root {
+      --dark-bg: #0a0a0a;
+      --light-text: #fff;
+      --accent: #f2a154;
+      --highlight: #f26b38;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: 
+        linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+        url('b.jpg') center/cover no-repeat fixed;
+      color: var(--light-text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    nav {
+      background-color: rgba(0, 0, 0, 0.85);
+      padding: 20px 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-family: 'Playfair Display', serif;
+      color: var(--accent);
+    }
+
+    .nav-buttons a {
+      color: #ffffff;
+      margin-left: 20px;
+      text-decoration: none;
+      font-size: 16px;
+      transition: color 0.3s ease;
+    }
+
+     nav a:hover,
+    nav a.active {
+      color: var(--accent-beige);
+    }
+
+
+    .center-wrapper {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .content {
+      max-width: 700px;
+      animation: fadeIn 1s ease;
+    }
+
+    .content h1 {
+      font-size: 42px;
+      margin-bottom: 20px;
+      color: var(--accent);
+      font-family: 'Times New Roman', serif;
+    }
+
+    .content p {
+      font-size: 16px;
+      color: #ffffff;
+      margin-bottom: 20px;
+      text-align: justify;
+    }
+
+    .content em {
+      color: var(--highlight);
+      text-align: center;
+      display: block;
+      margin: 0 auto 20px auto;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px 10px;
+      background-color: rgba(0, 0, 0, 0.85);
+      color: #ffffff;
+      font-size: 14px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-height: 600px) {
+      .center-wrapper {
+        align-items: flex-start;
+        padding-top: 80px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .content h1 {
+        font-size: 32px;
+      }
+
+      .content p {
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">Cattelier</div>
+    <div class="nav-buttons">
+      <a href="index.html">back</a>
+    </div>
+  </nav>
+
+  <div class="center-wrapper">
+    <div class="content">
+      <h1>Tentang Cattelier</h1>
+      <p><em>"Luxury Cats, Curated for You."</em></p>
+      <p>Cattelier adalah tempat di mana keanggunan dan cinta terhadap kucing bertemu. Kami menghadirkan ras-ras kucing terbaik dari seluruh dunia, dengan standar tinggi dalam perawatan dan keindahan.</p>
+      <p>Lebih dari sekadar toko, Cattelier adalah pengalaman. Kami percaya bahwa kucing bukan hanya hewan peliharaan, tetapi bagian dari identitas dan gaya hidup Anda.</p>
+      <p>Bergabunglah dengan komunitas kami yang menghargai estetika, kenyamanan, dan kasih sayang — semua dalam satu paket berbulu yang menggemaskan.</p>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 Cattelier. All rights reserved.
+  </footer>
+
+</body>
+</html>

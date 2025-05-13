@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cattelier.catshop</title>
+  <style>
+    :root {
+      --dark-bg: #000;
+      --light-text: #fff;
+      --accent-beige: #d5a877;
+      --soft-grey: #aaa;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif; /* Default sans-serif */
+      background-image: url('b.jpg');
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: 20% center;
+      background-attachment: fixed;
+      background-color: var(--dark-bg);
+      height: 100vh;
+      width: 100vw;
+      overflow: hidden;
+      color: var(--light-text);
+      animation: fadeIn 1.5s ease-in;
+      position: relative;
+    }
+
+    nav {
+      padding: 20px 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: rgba(0, 0, 0, 0.9);
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: var(--accent-beige);
+      font-family: 'Times New Roman', serif; /* Serif hanya untuk logo */
+      transition: transform 0.3s ease;
+    }
+
+    .logo:hover {
+      transform: scale(1.05);
+    }
+
+    nav a {
+      color: var(--light-text);
+      text-decoration: none;
+      margin-left: 20px;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: var(--accent-beige);
+    }
+
+    .nav-button {
+      background-color: var(--accent-beige);
+      padding: 8px 16px;
+      border-radius: 20px;
+      margin-left: 20px;
+      color: black;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .nav-button:hover {
+      background-color: #c0975f;
+      transform: scale(1.05);
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      align-items: center;
+      padding: 50px;
+      height: calc(100vh - 80px);
+    }
+
+    .content {
+      max-width: 50%;
+      padding: 30px;
+      border-radius: 10px;
+      opacity: 0;
+      transform: translateX(-30px);
+      animation: slideIn 1s ease forwards 0.8s;
+    }
+
+    .content h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+      font-family: 'Times New Roman', serif; /* Serif hanya untuk judul Cattelier */
+    }
+
+    .content p {
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 30px;
+      color: var(--light-text);
+      font-family: Arial, sans-serif; /* Sans untuk teks lain */
+    }
+
+    .stars {
+      color: gold;
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .btn {
+      background-color: var(--accent-beige);
+      color: rgb(0, 0, 0);
+      padding: 12px 25px;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 16px;
+      text-decoration: none;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #a07539;
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .content {
+        max-width: 100%;
+      }
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    @keyframes slideIn {
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">Cattelier</div>
+    <div class="nav-buttons">
+      <a href="about.html">about</a>
+      <a href="login.html">Sign In</a>
+      <a href="register.html">Sign Up</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="content">
+      <div class="stars">★ ★ ★ ★ ★</div>
+      <h1>Cattelier</h1>
+      <p><strong><em>"Luxury Cats, Curated for You"</em></strong></p>
+      <p>Temukan pilihan kucing paling istimewa yang dikurasi dengan penuh perhatian dan rasa cinta. Di Cattelier, kami percaya bahwa kucing bukan sekadar peliharaan mereka adalah perwujudan dari gaya hidup yang berkelas. </p>
+      <a class="btn" href="login.html">Login</a>
+    </div>
+  </div>
+
+</body>
+</html>

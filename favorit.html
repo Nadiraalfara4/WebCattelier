@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Favorit | Cattelier</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap');
+
+    :root {
+      --accent-beige: #d5a877;
+      --dark-bg: #000;
+      --light-text: #fff;
+      --input-bg: #1f1b17;
+      --gold-border: #bfa46f;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: var(--dark-bg);
+      color: var(--light-text);
+      min-height: 100vh;
+      padding-top: 80px;
+      animation: fadeInBody 1s ease-out;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: rgba(15, 10, 5, 0.9);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--accent-beige);
+      font-weight: bold;
+    }
+
+    nav a {
+      color: var(--light-text);
+      text-decoration: none;
+      margin-left: 1.5rem;
+      font-weight: bold;
+      font-size: 0.95rem;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover,
+    nav a.active {
+      color: var(--accent-beige);
+    }
+
+    .form-box {
+      background-color: rgba(25, 20, 15, 0.9);
+      padding: 2rem;
+      border-radius: 20px;
+      border: 1px solid var(--gold-border);
+      box-shadow: 0 0 25px rgba(213, 168, 119, 0.2);
+      width: 90%;
+      max-width: 400px;
+      margin: 5rem auto 2rem auto;
+      animation: fadeIn 1s ease-out;
+    }
+
+    .form-box h2 {
+      font-family: 'Playfair Display', serif;
+      margin-bottom: 1.5rem;
+      font-size: 28px;
+      text-align: center;
+      color: var(--accent-beige);
+    }
+
+    .product {
+      margin-bottom: 1rem;
+      padding: 10px;
+      background-color: var(--input-bg);
+      border-radius: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .product h3 {
+      font-size: 18px;
+      margin: 0;
+    }
+
+    .remove-btn {
+      background-color: #ff5e5e;
+      color: white;
+      border: none;
+      padding: 6px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: 0.2s ease;
+    }
+
+    .remove-btn:hover {
+      background-color: #e94e4e;
+    }
+
+    .btn {
+      background-color: var(--accent-beige);
+      color: #000;
+      border: none;
+      padding: 12px;
+      width: 100%;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s ease;
+      margin-top: 10px;
+    }
+
+    .btn:hover {
+      background-color: #c0975f;
+    }
+
+    p {
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    a {
+      color: var(--accent-beige);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      background-color: #1a1612;
+      color: #bbb;
+      text-align: center;
+      padding: 1.2rem;
+      font-size: 0.9rem;
+      border-top: 1px solid #333;
+      margin-top: 2rem;
+    }
+
+    footer a {
+      color: #d5a877;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInBody {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">Cattelier</div>
+    <nav>
+      <a href="home.html">Home</a>
+      <a href="shop.html">Cats</a>
+      <a href="favorit.html" class="active">Favorit</a>
+      <a href="cart.html">Cart</a>
+      <a href="checkout.html">Checkout</a>
+      <a href="invoice.html">Invoice</a>
+      <a href="profile.html">Profile</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <div class="form-box">
+    <h2>Favorit</h2>
+    <div id="favorites-list">
+      <!-- Produk favorit akan ditampilkan di sini -->
+    </div>
+    <button class="btn" onclick="window.location.href='shop.html'">Kembali</button>
+  </div>
+
+  <footer>
+    &copy; 2025 Cattelier. Dibuat dengan penuh kasih sayang dan keanggunan.
+  </footer>
+
+  <script>
+    function getLoggedInUserEmail() {
+      return localStorage.getItem('loggedInEmail');
+    }
+
+    function getUserFavoritesKey() {
+      const email = getLoggedInUserEmail();
+      return email ? `favorites_${email}` : null;
+    }
+
+    function renderFavorites() {
+      const key = getUserFavoritesKey();
+      const list = document.getElementById('favorites-list');
+      list.innerHTML = '';
+
+      if (!key) {
+        list.innerHTML = '<p>Silakan login untuk melihat favorit Anda.</p>';
+        return;
+      }
+
+      const favorites = JSON.parse(localStorage.getItem(key)) || [];
+
+      if (favorites.length === 0) {
+        list.innerHTML = '<p>Tidak ada favorit yang dipilih.</p>';
+        return;
+      }
+
+      favorites.forEach((itemName, index) => {
+        const item = document.createElement('div');
+        item.className = 'product';
+        item.innerHTML = `
+          <h3>${itemName}</h3>
+          <button class="remove-btn" onclick="removeFavorite(${index})">Hapus</button>
+        `;
+        list.appendChild(item);
+      });
+    }
+
+    function removeFavorite(index) {
+      const key = getUserFavoritesKey();
+      if (!key) return;
+
+      let favorites = JSON.parse(localStorage.getItem(key)) || [];
+      favorites.splice(index, 1);
+      localStorage.setItem(key, JSON.stringify(favorites));
+      renderFavorites();
+    }
+
+    window.onload = renderFavorites;
+  </script>
+</body>
+</html>

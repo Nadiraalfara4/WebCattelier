@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Invoice | Cattelier</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap');
+
+    :root {
+      --accent-beige: #d5a877;
+      --dark-bg: #0e0c0a;
+      --light-text: #fff;
+      --input-bg: #1f1b17;
+      --gold-border: #bfa46f;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+        background-color: var(--dark-bg);
+        font-family: 'Arial', sans-serif;
+        color: var(--light-text);
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        flex-direction: column;
+        overflow-y: auto;
+      }
+      
+
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: rgba(15, 10, 5, 0.9);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--accent-beige);
+      font-weight: bold;
+    }
+
+    nav a {
+      color: var(--light-text);
+      text-decoration: none;
+      margin-left: 1.5rem;
+      font-weight: bold;
+      font-size: 0.95rem;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover,
+    nav a.active {
+      color: var(--accent-beige);
+    }
+
+    .invoice-container {
+      max-width: 700px;
+      background-color: #1a1a1a;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+      border: 2px solid var(--accent-beige);
+      animation: fadeIn 1s ease-out;
+      margin-top: 80px;
+      overflow-y: auto;
+      max-height: 90vh;
+    }
+
+    h2 {
+      color: var(--accent-beige);
+      font-family: 'Playfair Display', serif;
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 28px;
+      letter-spacing: 2px;
+    }
+
+    .detail {
+      margin-bottom: 30px;
+      font-size: 16px;
+      border-bottom: 1px solid #333;
+      padding-bottom: 10px;
+    }
+
+    .detail p {
+      margin: 5px 0;
+      font-weight: bold;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #333;
+      font-size: 16px;
+    }
+
+    th {
+      background-color: var(--dark-bg);
+      color: var(--accent-beige);
+      text-transform: uppercase;
+    }
+
+    .total {
+      text-align: right;
+      font-size: 20px;
+      font-weight: bold;
+      color: var(--accent-beige);
+      padding-top: 10px;
+      letter-spacing: 1px;
+    }
+
+    footer {
+        background-color: #1a1612;
+        color: #bbb;
+        text-align: center;
+        padding: 1.2rem;
+        font-size: 0.9rem;
+        border-top: 1px solid #333;
+        width: 100%;
+        position: relative; /* Ganti dari fixed menjadi relative */
+      }
+      .invoice-container {
+        max-width: 700px;
+        background-color: #1a1a1a;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        border: 2px solid var(--accent-beige);
+        animation: fadeIn 1s ease-out;
+        margin-top: 80px;
+        margin-bottom: 100px;
+        overflow-y: scroll;
+        max-height: 90vh;
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE 10+ */
+      }
+      
+      .invoice-container::-webkit-scrollbar {
+        display: none; /* Chrome, Safari, Opera */
+      }
+      
+      
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .invoice-container:hover {
+      box-shadow: 0 0 15px 5px var(--accent-beige);
+    }
+
+    tbody tr:hover {
+      background-color: #333;
+      cursor: pointer;
+      transform: scale(1.02);
+      transition: all 0.2s ease;
+    }
+
+    .product-image {
+      width: 80px;
+      border-radius: 8px;
+      margin-right: 10px;
+    }
+
+    .print-btn {
+      display: block;
+      margin: 0 auto 30px;
+      background-color: var(--accent-beige);
+      color: #000;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .print-btn:hover {
+      background-color: #c0975f;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">Cattelier</div>
+    <nav>
+        <a href="home.html" class="nav-link">Home</a>
+        <a href="shop.html" class="nav-link">Cats</a>
+        <a href="favorit.html" class="nav-link">Favorit</a>
+        <a href="cart.html" class="nav-link">Cart</a>
+        <a href="checkout.html" class="nav-link">Checkout</a>
+        <a href="invoice.html" class="nav-link">Invoice</a>
+        <a href="profile.html" class="nav-link">Profile</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+    </nav>
+  </header>
+
+  <div class="invoice-container">
+    <h2>Invoice Pembelian 🧾</h2>
+    <div class="detail">
+      <p><strong>Nama:</strong> <span id="buyer-name"></span></p>
+      <p><strong>Alamat:</strong> <span id="buyer-address"></span></p>
+      <p><strong>Metode Pembayaran:</strong> <span id="buyer-payment"></span></p>
+      <p><strong>Tanggal:</strong> <span id="invoice-date"></span></p>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Produk</th>
+          <th>Jumlah</th>
+          <th>Harga</th>
+          <th>Subtotal</th>
+        </tr>
+      </thead>
+      <tbody id="invoice-body">
+        <!-- Diisi oleh JavaScript -->
+      </tbody>
+    </table>
+  
+    <!-- Total dan tombol cetak -->
+    <div style="text-align: right; margin-top: 10px;">
+      <p class="total" style="margin-bottom: 10px;">Total: <span id="grand-total"></span></p>
+      <button onclick="window.print()" class="print-btn" style="margin-top: 0;">🖨️ Cetak Invoice</button>
+    </div>
+  </div>
+  
+
+  <footer>
+    &copy; 2025 Cattelier. Dibuat dengan penuh kasih sayang dan keanggunan. 🌟
+  </footer>
+
+  <!-- ... (semua bagian sebelumnya tidak berubah) ... -->
+  <script>
+    function parsePrice(priceStr) {
+      return parseInt(priceStr.replace(/[^\d]/g, '')) || 0;
+    }
+  
+    function formatPrice(num) {
+      return "IDR " + num.toLocaleString("id-ID");
+    }
+  
+    function loadInvoice() {
+      const user = JSON.parse(localStorage.getItem("loggedInUser"));
+      if (!user) {
+        document.body.innerHTML = "<h2 style='text-align:center; color:red;'>Anda belum login.</h2>";
+        return;
+      }
+      const userEmail = user.email;
+  
+      const data = JSON.parse(localStorage.getItem("invoiceData_" + userEmail));
+      if (!data) {
+        document.body.innerHTML = "<h2 style='text-align:center; color:red;'>Data invoice tidak ditemukan untuk akun ini!</h2>";
+        return;
+      }
+  
+      // Tampilkan detail invoice
+      document.getElementById("buyer-name").textContent = data.buyer.nama;
+      document.getElementById("buyer-address").textContent = data.buyer.alamat;
+      document.getElementById("buyer-payment").textContent = data.buyer.pembayaran;
+      document.getElementById("invoice-date").textContent = data.tanggal;
+  
+      const tbody = document.getElementById("invoice-body");
+      let grandTotal = 0;
+  
+      data.items.forEach(item => {
+        const priceNum = parsePrice(item.price);
+        const subtotal = priceNum * item.quantity;
+        grandTotal += subtotal;
+  
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${item.name}</td>
+          <td>${item.quantity}</td>
+          <td>${item.price}</td>
+          <td>${formatPrice(subtotal)}</td>
+        `;
+        tbody.appendChild(row);
+      });
+  
+      document.getElementById("grand-total").textContent = formatPrice(grandTotal);
+  
+      // Siapkan entri invoice
+      const invoiceEntry = {
+        kode: "INV" + Date.now(),
+        tanggal: data.tanggal,
+        status: "Selesai",
+        total: formatPrice(grandTotal),
+        items: data.items.map(item => ({
+          nama: item.name,
+          jumlah: item.quantity,
+          harga: item.price,
+          subtotal: formatPrice(parsePrice(item.price) * item.quantity)
+        }))
+      };
+  
+      const riwayatKey = "riwayatInvoices_" + userEmail;
+      const riwayatLama = JSON.parse(localStorage.getItem(riwayatKey)) || [];
+  
+      // Cegah duplikat berdasarkan isi persis (jumlah item dan total sama)
+      const sudahAda = riwayatLama.some(inv =>
+        inv.total === invoiceEntry.total &&
+        JSON.stringify(inv.items) === JSON.stringify(invoiceEntry.items)
+      );
+  
+      if (!sudahAda) {
+        riwayatLama.push(invoiceEntry);
+        localStorage.setItem(riwayatKey, JSON.stringify(riwayatLama));
+      }
+  
+      // Hapus invoiceData agar tidak dikirim ulang
+      localStorage.removeItem("invoiceData_" + userEmail);
+    }
+  
+    const user = JSON.parse(localStorage.getItem("loggedInUser"));
+    if (!user) {
+      alert("Silakan login terlebih dahulu.");
+      window.location.href = "login.html";
+    }
+    window.onload = loadInvoice;
+  </script>
+  
+</body>
+</html>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Kontak | Cattelier</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap');
+
+    :root {
+      --accent-beige: #d5a877;
+      --dark-bg: #000; /* Mengubah background menjadi hitam */
+      --light-text: #fff;
+      --input-bg: #1f1b17;
+      --gold-border: #bfa46f;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: var(--dark-bg); /* Mengatur background hitam */
+      color: var(--light-text);
+      min-height: 100vh;
+      padding-top: 80px;
+      display: flex;
+      flex-direction: column;
+      animation: fadeInBody 1s ease-out; /* Menambahkan animasi fade-in pada body */
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: rgba(15, 10, 5, 0.9);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--accent-beige);
+      font-weight: bold;
+    }
+
+    nav a {
+      color: var(--light-text);
+      text-decoration: none;
+      margin-left: 1.5rem;
+      font-weight: bold;
+      font-size: 0.95rem;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover,
+    nav a.active {
+      color: var(--accent-beige);
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem 1rem;
+      animation: fadeIn 1s ease-out; /* Menambahkan animasi fade-in pada konten utama */
+    }
+
+    .contact-box {
+      background-color: rgba(25, 20, 15, 0.9);
+      padding: 2.5rem;
+      border-radius: 20px;
+      border: 1px solid var(--gold-border);
+      box-shadow: 0 0 25px rgba(213, 168, 119, 0.2);
+      width: 90%;
+      max-width: 520px;
+      animation: fadeIn 1s ease-out; /* Menambahkan animasi fade-in pada contact-box */
+    }
+
+    .contact-box h2 {
+      font-family: 'Playfair Display', serif;
+      margin-bottom: 1.5rem;
+      font-size: 30px;
+      text-align: center;
+    }
+
+    .glow-title {
+      color: var(--accent-beige);
+      animation: glow 2s ease-in-out infinite;
+      text-shadow: 0 0 5px #d5a877, 0 0 10px #d5a877, 0 0 15px #d5a877;
+    }
+
+    form label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+      font-size: 0.95rem;
+    }
+
+    form input,
+    form textarea {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 1.5rem;
+      border: 1px solid var(--gold-border);
+      border-radius: 10px;
+      background-color: var(--input-bg);
+      color: var(--light-text);
+      font-size: 1rem;
+      transition: box-shadow 0.3s ease;
+    }
+
+    form input:focus,
+    form textarea:focus {
+      box-shadow: 0 0 10px var(--accent-beige);
+      outline: none;
+    }
+
+    .btn {
+      background-color: var(--accent-beige);
+      color: #000;
+      border: none;
+      padding: 14px;
+      width: 100%;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-family: 'Playfair Display', serif;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .btn:hover {
+      background-color: #c0975f;
+      transform: scale(1.02);
+    }
+
+    footer {
+      background-color: #1a1612;
+      color: #bbb;
+      text-align: center;
+      padding: 1.2rem;
+      font-size: 0.9rem;
+      border-top: 1px solid #333;
+    }
+
+    footer a {
+      color: #d5a877;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInBody {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes glow {
+      0%, 100% {
+        text-shadow: 0 0 5px #d5a877, 0 0 10px #d5a877, 0 0 15px #d5a877;
+      }
+      50% {
+        text-shadow: 0 0 10px #d5a877, 0 0 20px #d5a877, 0 0 30px #d5a877;
+      }
+    }
+
+    .contact-info {
+      margin-top: 1.8rem;
+      padding-top: 1.2rem;
+      border-top: 1px dashed var(--gold-border);
+      text-align: center;
+      font-size: 0.95rem;
+    }
+
+    .contact-info a {
+      color: var(--accent-beige);
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .contact-info a:hover {
+      text-decoration: underline;
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">Cattelier</div>
+    <nav>
+        <a href="home.html" class="nav-link">Home</a>
+      <a href="shop.html" class="nav-link">Cats</a>
+      <a href="favorit.html" class="nav-link">Favorit</a>
+      <a href="cart.html" class="nav-link">Cart</a>
+      <a href="checkout.html" class="nav-link">Checkout</a>
+      <a href="invoice.html" class="nav-link">Invoice</a>
+      <a href="profile.html" class="nav-link">Profile</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="contact-box">
+      <h2 class="glow-title">Contact Us🐾</h2>
+      <form id="contact-form">
+        <label for="nama">👤 Nama</label>
+        <input type="text" id="nama" required>
+
+        <label for="email">📧 Email</label>
+        <input type="email" id="email" required>
+
+        <label for="pesan">💬 Pesan</label>
+        <textarea id="pesan" rows="5" required></textarea>
+
+        <button type="submit" class="btn">Kirim Pesan</button>
+      </form>
+
+      <div class="contact-info">
+        <p>📸 Instagram: <a href="https://www.instagram.com/nadiraalfara_?igsh=MXg4YmszcXo4aHRwNA==" target="_blank">@nadiraalfara</a></p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2025 Cattelier. Dibuat dengan penuh kasih sayang dan keanggunan.
+  </footer>
+
+  <script>
+
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert("Pesan berhasil dikirim. Terima kasih telah menghubungi kami!");
+        this.reset();
+      });
+ 
+  </script>
+</body>
+</html>
